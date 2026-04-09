@@ -1,0 +1,3 @@
+com\resumescreening\ApplicationTest.class
+com\resumescreening\selenium\ResumeSubmissionSeleniumTest.class
+com\resumescreening\service\MatchingServiceTest.class

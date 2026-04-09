@@ -1,0 +1,276 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;600;700&display=swap');
+
+/* ── Reset ───────────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; }
+
+html, body, #root {
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  font-family: 'Outfit', sans-serif;
+  background: #07070f;
+  color: #fff;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ── Scrollbar ───────────────────────────────────────────────── */
+::-webkit-scrollbar { width: 5px; }
+::-webkit-scrollbar-track { background: #07070f; }
+::-webkit-scrollbar-thumb { background: #8b5cf6; border-radius: 4px; }
+
+/* ── Star canvas ─────────────────────────────────────────────── */
+#star-canvas {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* ── Atmospheric orbs ────────────────────────────────────────── */
+.orb {
+  position: fixed;
+  border-radius: 50%;
+  filter: blur(90px);
+  opacity: 0.14;
+  pointer-events: none;
+  z-index: 0;
+}
+.orb-1 {
+  width: 560px; height: 560px;
+  background: radial-gradient(circle, #8b5cf6, transparent);
+  top: -200px; left: -200px;
+  animation: orbFloat 22s ease-in-out infinite;
+}
+.orb-2 {
+  width: 440px; height: 440px;
+  background: radial-gradient(circle, #22d3ee, transparent);
+  bottom: -180px; right: -180px;
+  animation: orbFloat 28s ease-in-out infinite;
+  animation-delay: -9s;
+}
+.orb-3 {
+  width: 300px; height: 300px;
+  background: radial-gradient(circle, #a855f7, transparent);
+  top: 38%; right: 4%;
+  animation: orbFloat 18s ease-in-out infinite;
+  animation-delay: -5s;
+}
+
+/* ── Main glassmorphism card ─────────────────────────────────── */
+.glass-card {
+  background: rgba(10, 10, 20, 0.82);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid rgba(168, 85, 247, 0.22);
+  border-radius: 24px;
+  box-shadow:
+    0 0 0 1px rgba(255,255,255,0.04) inset,
+    0 4px 40px rgba(168, 85, 247, 0.14),
+    0 0 100px rgba(168, 85, 247, 0.06);
+}
+
+/* ── Gradient heading ────────────────────────────────────────── */
+.gradient-heading {
+  background: linear-gradient(120deg, #ffffff 0%, #c084fc 48%, #22d3ee 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  filter: drop-shadow(0 0 20px rgba(168, 85, 247, 0.35));
+}
+
+/* ── Shimmer border (result card top accent) ─────────────────── */
+.shimmer-border {
+  background: linear-gradient(90deg, transparent, #8b5cf6, #22d3ee, #8b5cf6, transparent);
+  background-size: 300% 100%;
+  animation: shimmer 4s linear infinite;
+}
+
+/* ── Score gradient text ─────────────────────────────────────── */
+.score-gradient {
+  background: linear-gradient(135deg, #e2c6ff, #a855f7);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  filter: drop-shadow(0 0 10px rgba(168, 85, 247, 0.5));
+}
+
+/* ── Analyze button ──────────────────────────────────────────── */
+.btn-analyze {
+  background: linear-gradient(135deg, #8b5cf6 0%, #6366f1 50%, #22d3ee 100%);
+  background-size: 200% 100%;
+  transition: background-position 0.4s ease, transform 0.2s ease, box-shadow 0.2s ease, opacity 0.2s ease;
+  box-shadow: 0 4px 24px rgba(139, 92, 246, 0.35);
+  border-radius: 14px;
+  border: none;
+  cursor: pointer;
+}
+.btn-analyze:hover:not(:disabled) {
+  background-position: right center;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 32px rgba(139, 92, 246, 0.55), 0 0 60px rgba(34, 211, 238, 0.15);
+}
+.btn-analyze:active:not(:disabled) { transform: translateY(0); }
+.btn-analyze:disabled { opacity: 0.45; cursor: not-allowed; }
+
+/* ── Drop zone ───────────────────────────────────────────────── */
+.drop-zone {
+  border: 1.5px dashed rgba(168, 85, 247, 0.32);
+  border-radius: 16px;
+  background: rgba(168, 85, 247, 0.035);
+  transition: border-color 0.25s ease, background 0.25s ease, box-shadow 0.25s ease;
+  cursor: pointer;
+  user-select: none;
+}
+.drop-zone:hover {
+  border-color: rgba(168, 85, 247, 0.65);
+  background: rgba(168, 85, 247, 0.07);
+  box-shadow: 0 0 0 3px rgba(168, 85, 247, 0.08), 0 0 20px rgba(168, 85, 247, 0.12);
+}
+.drop-zone.drag-over {
+  border-color: #a855f7;
+  background: rgba(168, 85, 247, 0.1);
+  box-shadow: 0 0 0 3px rgba(168, 85, 247, 0.12), 0 0 28px rgba(168, 85, 247, 0.18);
+}
+
+/* ── JD Textarea ─────────────────────────────────────────────── */
+.jd-textarea {
+  width: 100%;
+  background: rgba(8, 8, 18, 0.7);
+  border: 1px solid rgba(168, 85, 247, 0.20);
+  border-radius: 12px;
+  padding: 12px 16px;
+  color: #e5e5f0;
+  font-family: 'Outfit', sans-serif;
+  font-size: 0.93rem;
+  line-height: 1.65;
+  resize: vertical;
+  outline: none;
+  transition: border-color 0.25s ease, box-shadow 0.25s ease, background 0.25s ease;
+}
+.jd-textarea::placeholder { color: #3d3d5c; }
+.jd-textarea:focus {
+  border-color: rgba(34, 211, 238, 0.55);
+  background: rgba(8, 8, 18, 0.85);
+  box-shadow: 0 0 0 3px rgba(34, 211, 238, 0.08), 0 0 16px rgba(34, 211, 238, 0.10);
+}
+
+/* ── Spinner ─────────────────────────────────────────────────── */
+.spinner {
+  width: 17px;
+  height: 17px;
+  border: 2px solid rgba(255, 255, 255, 0.22);
+  border-top-color: #fff;
+  border-radius: 50%;
+  animation: spinAnim 0.65s linear infinite;
+  flex-shrink: 0;
+}
+
+/* ── Section label ───────────────────────────────────────────── */
+.section-label {
+  display: block;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #818cf8;
+  margin-bottom: 10px;
+}
+
+/* ── Skill chip ──────────────────────────────────────────────── */
+.skill-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 12px;
+  border-radius: 999px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.72rem;
+  font-weight: 600;
+  background: rgba(139, 92, 246, 0.10);
+  border: 1px solid rgba(139, 92, 246, 0.28);
+  color: #c084fc;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+.skill-chip:hover {
+  background: rgba(139, 92, 246, 0.18);
+  border-color: rgba(139, 92, 246, 0.5);
+  transform: translateY(-1px);
+}
+.skill-chip-dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: #22d3ee;
+  box-shadow: 0 0 5px #22d3ee;
+  flex-shrink: 0;
+}
+
+/* ── Stat box (score / decision) ─────────────────────────────── */
+.stat-box {
+  background: rgba(255, 255, 255, 0.025);
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  border-radius: 16px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  transition: border-color 0.25s ease, box-shadow 0.25s ease;
+}
+.stat-box:hover {
+  border-color: rgba(168, 85, 247, 0.22);
+  box-shadow: 0 0 18px rgba(168, 85, 247, 0.08);
+}
+.stat-label {
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #4b5563;
+}
+
+/* ── Divider ─────────────────────────────────────────────────── */
+.section-divider {
+  width: 100%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(139,92,246,0.4), rgba(34,211,238,0.35), transparent);
+  margin: 0 0 28px;
+}
+
+/* ── Keyframes ───────────────────────────────────────────────── */
+@keyframes shimmer {
+  0%   { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+@keyframes spinAnim { to { transform: rotate(360deg); } }
+@keyframes pulseDot {
+  0%, 100% { opacity: 1;   transform: scale(1); }
+  50%       { opacity: 0.3; transform: scale(0.6); }
+}
+@keyframes fadeSlideIn {
+  from { opacity: 0; transform: translateY(14px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes orbFloat {
+  0%, 100% { transform: translateY(0) scale(1); }
+  40%       { transform: translateY(-28px) scale(1.04); }
+  70%       { transform: translateY(18px) scale(0.97); }
+}
+@keyframes subtlePulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(168,85,247,0.0); }
+  50%       { box-shadow: 0 0 0 6px rgba(168,85,247,0.06); }
+}
+
+/* ── Utility classes ─────────────────────────────────────────── */
+.animate-pulse-dot       { animation: pulseDot 1.8s ease-in-out infinite; }
+.animate-pulse-dot-slow  { animation: pulseDot 2.5s ease-in-out infinite; }
+.animate-fade-slide-in   { animation: fadeSlideIn 0.4s cubic-bezier(0.16,1,0.3,1) both; }
+.animate-orb-float       { animation: orbFloat 22s ease-in-out infinite; }

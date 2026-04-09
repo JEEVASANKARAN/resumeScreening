@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resume Screening System</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 24px;
+            color: #e0e0e0;
+        }
+
+        .card {
+            background: rgba(255,255,255,0.06);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255,255,255,0.12);
+            border-radius: 18px;
+            padding: 40px;
+            width: 100%;
+            max-width: 640px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+        }
+
+        h1 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+            background: linear-gradient(90deg, #a78bfa, #60a5fa);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .subtitle {
+            font-size: 0.9rem;
+            color: #9ca3af;
+            margin-bottom: 32px;
+        }
+
+        label {
+            display: block;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 6px;
+            color: #c4b5fd;
+        }
+
+        .form-group { margin-bottom: 22px; }
+
+        input[type="file"] {
+            width: 100%;
+            padding: 12px;
+            background: rgba(255,255,255,0.05);
+            border: 1px dashed rgba(167,139,250,0.5);
+            border-radius: 10px;
+            color: #e0e0e0;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: border-color 0.25s;
+        }
+
+        input[type="file"]:hover { border-color: #a78bfa; }
+
+        textarea {
+            width: 100%;
+            height: 140px;
+            padding: 12px;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.12);
+            border-radius: 10px;
+            color: #e0e0e0;
+            font-size: 0.9rem;
+            resize: vertical;
+            transition: border-color 0.25s;
+        }
+
+        textarea:focus {
+            outline: none;
+            border-color: #a78bfa;
+        }
+
+        button {
+            width: 100%;
+            padding: 14px;
+            background: linear-gradient(90deg, #7c3aed, #4f46e5);
+            border: none;
+            border-radius: 10px;
+            color: #fff;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: opacity 0.2s, transform 0.15s;
+        }
+
+        button:hover  { opacity: 0.9; transform: translateY(-1px); }
+        button:active { transform: translateY(0); }
+
+        /* Error message */
+        #errorMessage {
+            display: none;
+            margin-top: 16px;
+            padding: 12px 16px;
+            background: rgba(239,68,68,0.15);
+            border: 1px solid rgba(239,68,68,0.4);
+            border-radius: 8px;
+            color: #fca5a5;
+            font-size: 0.9rem;
+        }
+
+        /* Result section */
+        #resultSection {
+            display: none;
+            margin-top: 28px;
+        }
+
+        .result-header {
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 16px;
+            color: #a78bfa;
+        }
+
+        .result-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 14px;
+            margin-bottom: 16px;
+        }
+
+        .result-box {
+            background: rgba(255,255,255,0.06);
+            border-radius: 10px;
+            padding: 16px;
+            text-align: center;
+        }
+
+        .result-box .label {
+            font-size: 0.75rem;
+            color: #9ca3af;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            margin-bottom: 6px;
+        }
+
+        .result-box .value {
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: #e0e0e0;
+        }
+
+        #status.shortlisted { color: #34d399; }
+        #status.rejected    { color: #f87171; }
+
+        .skills-list {
+            background: rgba(255,255,255,0.04);
+            border-radius: 10px;
+            padding: 14px;
+        }
+
+        .skills-label {
+            font-size: 0.8rem;
+            color: #9ca3af;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            margin-bottom: 10px;
+        }
+
+        .skill-chip {
+            display: inline-block;
+            background: rgba(124,58,237,0.3);
+            border: 1px solid rgba(167,139,250,0.3);
+            border-radius: 20px;
+            padding: 4px 12px;
+            font-size: 0.82rem;
+            margin: 4px 4px 0 0;
+            color: #c4b5fd;
+        }
+
+        .spinner {
+            display: none;
+            text-align: center;
+            margin-top: 16px;
+            color: #9ca3af;
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+<div class="card">
+    <h1>Resume Screening</h1>
+    <p class="subtitle">Upload a resume and enter the job description to screen candidates instantly.</p>
+
+    <div class="form-group">
+        <label for="resumeFile">Resume File (PDF / DOCX)</label>
+        <input type="file" id="resumeFile" accept=".pdf,.doc,.docx" />
+    </div>
+
+    <div class="form-group">
+        <label for="jobDescription">Job Description</label>
+        <textarea id="jobDescription" placeholder="Paste the job description here…"></textarea>
+    </div>
+
+    <button id="analyzeBtn" onclick="analyzeResume()">Analyse Resume</button>
+
+    <div id="errorMessage"></div>
+    <div class="spinner" id="loadingSpinner">⏳ Analysing, please wait…</div>
+
+    <!-- Result Section -->
+    <div id="resultSection">
+        <div class="result-header">📊 Screening Result</div>
+        <div class="result-grid">
+            <div class="result-box">
+                <div class="label">Match Score</div>
+                <div class="value" id="score">—</div>
+            </div>
+            <div class="result-box">
+                <div class="label">Decision</div>
+                <div class="value" id="status">—</div>
+            </div>
+        </div>
+        <div class="skills-list">
+            <div class="skills-label">Matched Skills</div>
+            <div id="matchedSkills"></div>
+        </div>
+    </div>
+</div>
+
+<script>
+    const API_URL = '/analyze';
+
+    function showError(msg) {
+        const el = document.getElementById('errorMessage');
+        el.textContent = msg;
+        el.style.display = 'block';
+    }
+
+    function hideError() {
+        document.getElementById('errorMessage').style.display = 'none';
+    }
+
+    function showResult(data) {
+        // Score
+        document.getElementById('score').textContent = data.score.toFixed(1) + '%';
+
+        // Status
+        const statusEl = document.getElementById('status');
+        statusEl.textContent = data.status;
+        statusEl.className = data.status === 'Shortlisted' ? 'value shortlisted' : 'value rejected';
+
+        // Matched skills
+        const skillsEl = document.getElementById('matchedSkills');
+        skillsEl.innerHTML = '';
+        if (data.matchedSkills && data.matchedSkills.length > 0) {
+            data.matchedSkills.forEach(skill => {
+                const chip = document.createElement('span');
+                chip.className = 'skill-chip';
+                chip.textContent = skill;
+                skillsEl.appendChild(chip);
+            });
+        } else {
+            skillsEl.textContent = 'No skills matched.';
+        }
+
+        document.getElementById('resultSection').style.display = 'block';
+    }
+
+    async function analyzeResume() {
+        hideError();
+        document.getElementById('resultSection').style.display = 'none';
+        document.getElementById('loadingSpinner').style.display = 'block';
+
+        const fileInput = document.getElementById('resumeFile');
+        const jd        = document.getElementById('jobDescription').value.trim();
+
+        if (!fileInput.files || fileInput.files.length === 0) {
+            document.getElementById('loadingSpinner').style.display = 'none';
+            showError('Please select a resume file before submitting.');
+            return;
+        }
+
+        if (!jd) {
+            document.getElementById('loadingSpinner').style.display = 'none';
+            showError('Please enter a job description.');
+            return;
+        }
+
+        const formData = new FormData();
+        formData.append('file', fileInput.files[0]);
+        formData.append('jd', jd);
+
+        try {
+            const response = await fetch(API_URL, {
+                method: 'POST',
+                body: formData
+            });
+
+            const data = await response.json();
+
+            if (!response.ok) {
+                showError(data.error || 'An error occurred while analysing the resume.');
+            } else {
+                showResult(data);
+            }
+        } catch (err) {
+            showError('Could not connect to the backend. Make sure the server is running on port 8080.');
+        } finally {
+            document.getElementById('loadingSpinner').style.display = 'none';
+        }
+    }
+</script>
+</body>
+</html>

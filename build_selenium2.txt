@@ -1,0 +1,83 @@
+[INFO] Scanning for projects...
+[INFO] 
+[INFO] ----------------< com.resumescreening:resume-screening >----------------
+[INFO] Building resume-screening 1.0.0
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- clean:3.3.2:clean (default-clean) @ resume-screening ---
+[INFO] Deleting C:\Users\JEEVASANKARAN\Desktop\resumeScreening\target
+[INFO] 
+[INFO] --- resources:3.3.1:resources (default-resources) @ resume-screening ---
+[INFO] Copying 1 resource from src\main\resources to target\classes
+[INFO] Copying 1 resource from src\main\resources to target\classes
+[INFO] 
+[INFO] --- compiler:3.11.0:compile (default-compile) @ resume-screening ---
+[INFO] Changes detected - recompiling the module! :source
+[INFO] Compiling 6 source files with javac [debug release 17] to target\classes
+[INFO] 
+[INFO] --- resources:3.3.1:testResources (default-testResources) @ resume-screening ---
+[INFO] Copying 2 resources from src\test\resources to target\test-classes
+[INFO] 
+[INFO] --- compiler:3.11.0:testCompile (default-testCompile) @ resume-screening ---
+[INFO] Changes detected - recompiling the module! :dependency
+[INFO] Compiling 3 source files with javac [debug release 17] to target\test-classes
+[INFO] 
+[INFO] --- surefire:3.1.2:test (default-test) @ resume-screening ---
+[INFO] Using auto detected provider org.apache.maven.surefire.junitplatform.JUnitPlatformProvider
+[INFO] 
+[INFO] -------------------------------------------------------
+[INFO]  T E S T S
+[INFO] -------------------------------------------------------
+[INFO] Running com.resumescreening.selenium.ResumeSubmissionSeleniumTest
+00:00:27.780 [main] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils -- Could not detect default configuration classes for test class [com.resumescreening.selenium.ResumeSubmissionSeleniumTest]: ResumeSubmissionSeleniumTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+00:00:27.992 [main] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper -- Found @SpringBootConfiguration com.resumescreening.Application for test class com.resumescreening.selenium.ResumeSubmissionSeleniumTest
+00:00:29.086 [main] INFO io.github.bonigarcia.wdm.WebDriverManager -- Using chromedriver 146.0.7680.165 (resolved driver for Chrome 146)
+00:00:29.117 [main] INFO io.github.bonigarcia.wdm.WebDriverManager -- Exporting webdriver.chrome.driver as C:\Users\JEEVASANKARAN\.cache\selenium\chromedriver\win64\146.0.7680.165\chromedriver.exe
+Apr 09, 2026 12:00:31 AM org.openqa.selenium.devtools.CdpVersionFinder findNearestMatch
+WARNING: Unable to find CDP implementation matching 146
+Apr 09, 2026 12:00:31 AM org.openqa.selenium.chromium.ChromiumDriver lambda$new$5
+WARNING: Unable to find version of CDP to use for 146.0.7680.178. You may need to include a dependency on a specific version of the CDP using something similar to `org.seleniumhq.selenium:selenium-devtools-v86:4.19.1` where the version ("v86") matches the version of the chromium-based browser you're using and the version number of the artifact is the same as Selenium's.
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+ :: Spring Boot ::                (v3.2.4)
+
+2026-04-09T00:00:32.490+05:30  INFO 268184 --- [resume-screening] [           main] c.r.s.ResumeSubmissionSeleniumTest       : Starting ResumeSubmissionSeleniumTest using Java 23 with PID 268184 (started by JEEVASANKARAN in C:\Users\JEEVASANKARAN\Desktop\resumeScreening)
+2026-04-09T00:00:32.494+05:30  INFO 268184 --- [resume-screening] [           main] c.r.s.ResumeSubmissionSeleniumTest       : No active profile set, falling back to 1 default profile: "default"
+2026-04-09T00:00:35.383+05:30  INFO 268184 --- [resume-screening] [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 0 (http)
+2026-04-09T00:00:35.430+05:30  INFO 268184 --- [resume-screening] [           main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-04-09T00:00:35.432+05:30  INFO 268184 --- [resume-screening] [           main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.19]
+2026-04-09T00:00:35.710+05:30  INFO 268184 --- [resume-screening] [           main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2026-04-09T00:00:35.711+05:30  INFO 268184 --- [resume-screening] [           main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 3147 ms
+2026-04-09T00:00:37.917+05:30  INFO 268184 --- [resume-screening] [           main] o.s.b.a.w.s.WelcomePageHandlerMapping    : Adding welcome page: class path resource [static/index.html]
+2026-04-09T00:00:38.864+05:30  INFO 268184 --- [resume-screening] [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 65202 (http) with context path ''
+2026-04-09T00:00:38.881+05:30  INFO 268184 --- [resume-screening] [           main] c.r.s.ResumeSubmissionSeleniumTest       : Started ResumeSubmissionSeleniumTest in 7.218 seconds (process running for 12.766)
+WARNING: A Java agent has been loaded dynamically (C:\Users\JEEVASANKARAN\.m2\repository\net\bytebuddy\byte-buddy-agent\1.14.12\byte-buddy-agent-1.14.12.jar)
+WARNING: If a serviceability tool is in use, please run with -XX:+EnableDynamicAgentLoading to hide this warning
+WARNING: If a serviceability tool is not in use, please run with -Djdk.instrument.traceUsage for more information
+WARNING: Dynamic loading of agents will be disallowed by default in a future release
+Java HotSpot(TM) 64-Bit Server VM warning: Sharing is only supported for boot loader classes because bootstrap classpath has been appended
+2026-04-09T00:00:41.650+05:30  INFO 268184 --- [resume-screening] [o-auto-1-exec-2] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-04-09T00:00:41.651+05:30  INFO 268184 --- [resume-screening] [o-auto-1-exec-2] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2026-04-09T00:00:41.653+05:30  INFO 268184 --- [resume-screening] [o-auto-1-exec-2] o.s.web.servlet.DispatcherServlet        : Completed initialization in 2 ms
+2026-04-09T00:00:44.149+05:30  WARN 268184 --- [resume-screening] [o-auto-1-exec-3] org.apache.pdfbox.pdfparser.COSParser    : The end of the stream doesn't point to the correct offset, using workaround to read the stream, stream start position: 253, length: 200, expected end position: 453
+2026-04-09T00:00:45.062+05:30  WARN 268184 --- [resume-screening] [o-auto-1-exec-3] o.a.p.p.font.FileSystemFontProvider      : 335 new fonts found, font cache will be re-built
+2026-04-09T00:00:45.063+05:30  WARN 268184 --- [resume-screening] [o-auto-1-exec-3] o.a.p.p.font.FileSystemFontProvider      : Building on-disk font cache, this may take a while
+2026-04-09T00:00:53.313+05:30  WARN 268184 --- [resume-screening] [o-auto-1-exec-3] o.a.p.p.font.FileSystemFontProvider      : Finished building on-disk font cache, found 358 fonts
+[INFO] Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 27.73 s -- in com.resumescreening.selenium.ResumeSubmissionSeleniumTest
+[INFO] 
+[INFO] Results:
+[INFO] 
+[INFO] Tests run: 3, Failures: 0, Errors: 0, Skipped: 0
+[INFO] 
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  39.229 s
+[INFO] Finished at: 2026-04-09T00:00:55+05:30
+[INFO] ------------------------------------------------------------------------
